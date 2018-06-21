@@ -4,7 +4,7 @@ $(document).ready(function () {
     clearAction();
 });
 
-var data_key = "data";
+var data_key = "lbdata";
 function load_table() {
     var key = data_key;
     var type_json;
@@ -25,34 +25,46 @@ function load_table() {
                 '    </tr>';
 
             type_json = JSON.parse(json);
+
             $.each(type_json, function (keyType, value) {
+                var score_array = value;
                 var format_count = 0;
                 var total_time = 0.0;
-                var score_json = type_json[keyType];
+
                 str += '<tr><td>' + keyType + '</td>';
 
-                $.each(score_json, function (key, value) {
-                    var item = value;
-                    var seg_time = item.count * key;
+                for(var i = 0; i < score_array.length; i++){
+                    var score_item = score_array[i];
+
+                    var score = score_item.score;
+                    var count = score_item.count;
+                    var title = score_item.task;
+
+                    var seg_time = count * score;
+
                     total_time += seg_time;
-                    if(format_count > 0) {
+
+                    if(format_count > 0 ) {
                         str += '<tr>' +
-                                '<td> </td>' +
-                                '<td>' + key + '</td>' +
-                                '<td>' + item.count + '</td>' +
-                                '<td>' + item.task + '</td>' +
-                                '<td>' + seg_time + '</td>' +
-                                '</tr>';
+                            '<td> </td>' +
+                            '<td>' + score + '</td>' +
+                            '<td>' + count + '</td>' +
+                            '<td>' + title + '</td>' +
+                            '<td>' + seg_time + '</td>' +
+                            '</tr>';
                     } else {
-                        str += '<td>' + key + '</td>' +
-                            '<td>' + item.count + '</td>' +
-                            '<td>' + item.task + '</td>' +
+                        str += '<tr>' +
+                            '<td> </td>' +
+                            '<td>' + score + '</td>' +
+                            '<td>' + count + '</td>' +
+                            '<td>' + title + '</td>' +
                             '<td>' + seg_time + '</td>' +
                             '</tr>';
                         format_count ++;
                     }
 
-                });
+                }
+
                 str += '<tr>' +
                     '<td> </td>' +
                     '<td></td>' +
