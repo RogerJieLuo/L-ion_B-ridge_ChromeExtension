@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+
+  "name": "LB track",
+  "description": "LionBridge task tracking",
+  "version": "2.0",
+
+  "options_page": "options.html",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+//    "fileSystem",
+//    "syncFileSystem",
+//    { "fileSystem": ["write"] }
+  ],
+
+   "content_scripts":[
+    {
+      "matches": ["http://www.rogerluo.info/*", "http://www.elainejin.com/blog/", "https://www.raterhub.com/evaluation/rater/task/*"],
+      // "css": ["mystyles.css"],
+      "js": ["libraries/jquery-3.2.1.min.js","libraries/html2canvas.js", "myscript.js"]
+    }
+  ],
+
+  "web_accessible_resources": ["data/*"]
+
+}
